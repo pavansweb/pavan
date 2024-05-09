@@ -7,6 +7,7 @@ body {
     justify-content: center;
     align-items: center;
     height: 100vh;
+    overflow: scroll;
 }
 
 .container {
@@ -50,6 +51,7 @@ button[type="submit"]:hover {
     padding: 10px;
     margin-bottom: 20px;
     font-size: 16px;
+    color: transparent;
     transition: border-color 0.3s ease;
 }
 
@@ -65,10 +67,13 @@ button[type="submit"]:hover {
 }
 
 #previewBox {
+    max-height: 300px; 
+    overflow-y: auto;
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
     gap: 3px;
     justify-content: center;
+    padding-bottom: 20px;
 }
 
 .preview-item {
@@ -91,6 +96,15 @@ button[type="submit"]:hover {
     border-radius: 5px;
 }
 
+.remove-button {
+    background: none;
+    border: none;
+    color: red;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+
 #message {
     text-align: center;
     color: #333;
@@ -99,6 +113,6 @@ button[type="submit"]:hover {
 /* Responsive styles */
 @media (max-width: 768px) {
     #previewBox {
-        grid-template-columns: repeat(2, minmax(150px, 1fr));
+        grid-template-columns: repeat(2, minmax(80px, 1fr));
     }
 }

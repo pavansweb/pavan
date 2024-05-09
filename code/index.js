@@ -21,21 +21,75 @@ function displayFilePreviews(files) {
         previewItem.classList.add('preview-item');
 
         if (file.type.startsWith('image/')) {
+            const container = document.createElement('div');
+            container.classList.add('image-container');
+            
             const image = document.createElement('img');
             image.src = URL.createObjectURL(file);
             image.alt = file.name;
             image.classList.add('preview-image');
-            previewItem.appendChild(image);
-        } else {
+            container.appendChild(image);
+            
+            const fileNameContainer = document.createElement('div');
+            fileNameContainer.classList.add('file-name-container');
+
             const fileName = document.createElement('p');
             fileName.textContent = file.name;
             fileName.classList.add('preview-file-name');
-            previewItem.appendChild(fileName);
+            fileNameContainer.appendChild(fileName);
+
+            const removeButton = document.createElement('button');
+            removeButton.textContent = '❌';
+            removeButton.classList.add('remove-button');
+            removeButton.addEventListener('click', () => removeFile(file));
+            fileNameContainer.appendChild(removeButton);
+
+            container.appendChild(fileNameContainer);
+            previewItem.appendChild(container);
+        } else {
+            const fileIcon = document.createElement('div');
+            fileIcon.classList.add('file-icon');
+            previewItem.appendChild(fileIcon);
+
+            // Handle different file types
+            if (file.type.startsWith('application/pdf')) {
+                fileIcon.innerHTML = '<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/PDF_file_icon.svg/1667px-PDF_file_icon.svg.png" alt="PDF">';
+            } else if (file.type.startsWith('text/')) {
+                fileIcon.innerHTML = '<img src="https://cdn-icons-png.flaticon.com/512/4248/4248321.png" alt="Text">';
+            } else {
+                fileIcon.innerHTML = '<img src="https://previews.123rf.com/images/ihorsw/ihorsw1804/ihorsw180400350/99701923-file-icon-vector-outline-data-page-line-computer-file-symbol.jpg" alt="File">';
+            }
+
+            const fileNameContainer = document.createElement('div');
+            fileNameContainer.classList.add('file-name-container');
+
+            const fileName = document.createElement('p');
+            fileName.textContent = file.name;
+            fileName.classList.add('preview-file-name');
+            fileNameContainer.appendChild(fileName);
+
+            const removeButton = document.createElement('button');
+            removeButton.textContent = '❌';
+            removeButton.classList.add('remove-button');
+            removeButton.addEventListener('click', () => removeFile(file));
+            fileNameContainer.appendChild(removeButton);
+
+            previewItem.appendChild(fileNameContainer);
         }
 
         previewBox.appendChild(previewItem);
     }
 }
+
+
+function removeFile(file) {
+    selectedFiles = selectedFiles.filter(selectedFile => selectedFile !== file);
+    displayFilePreviews(selectedFiles);
+    showMessage('File removed: ' + file.name);
+}
+
+
+
 
 document.getElementById('uploadForm').addEventListener('submit', async function(event) {
     event.preventDefault();
@@ -81,7 +135,7 @@ async function uploadFileToGitHub(file, fileContent) {
     const response = await fetch('https://api.github.com/repos/pavansweb/pavan/contents/files/' + file.name, {
         method: 'PUT',
         headers: {
-            'Authorization': 'token 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',
+            'Authorization': 'token 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',
             'Content-Type': 'application/json' // Specify content type as JSON
         },
         body: JSON.stringify({
