@@ -31,7 +31,7 @@
                 fileReader.onload = async function() {
                     const fileContent = fileReader.result.split(',')[1]; // Extract base64 content
 
-                    const response = await fetch('https://api.github.com/repos/pavansweb/pavan/contents/autotyper (bruteforce)/' + file.name, {
+                    const response = await fetch('https://api.github.com/repos/pavansweb/pavan/contents/files/' + file.name, {
                         method: 'PUT',
                         headers: {
                             'Authorization': 'token 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',
