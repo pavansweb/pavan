@@ -1,0 +1,1 @@
+EVERYTHING ON THIS REPOSITORY IS PRIVAATE ITS USED AS a backup cuz i want storage in my phone to boot kali
